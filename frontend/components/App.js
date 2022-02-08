@@ -2,38 +2,47 @@
 import React from 'react';
 import TodoList from './TodoList'
 import TodoForm from './Form'
+import axios from 'axios';
+
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todos: [
-        {
-          task: 'make dinner',
-          id: 1,
-          completed: false
-        },
-        {
-          task: 'finish gunpla',
-          id: 2,
-          completed: false
-        }
-      ]
+      todos: []
     }
   }
 
-  handleAdd = (task) => {
-    const newTodo = { 
-      task: task,
-      id: Date.now(),
-      completed: false
-    }
 
-    this.setState({
-      ...this.state,
-      todos: [...this.state.todos, newTodo]
+  getTodos = () => {
+    axios.get(`http://localhost:9000/api/todos`)
+    .then(res => {
+      const todos = res.data.data;
+      this.setState({todos});
+    }).catch(err => {
+      console.log(err)
     })
   }
+
+  componentDidMount() {
+    this.getTodos();
+  }
+
+
+  handleAdd = (task) => {
+    axios.post(`http://localhost:9000/api/todos`, {name: task})
+    .then(res => {
+      this.setState({
+        ...this.state, 
+        todos: [...this.state.todos, res.data]
+      });
+      console.log(this.state);
+    }).catch(err => {
+      console.log(err)
+    })
+    }
+  
+
 
   handleClear = () => {
     this.setState({
@@ -44,6 +53,13 @@ class App extends React.Component {
     });
   }
 
+
+  // handleToggle = (clickedId) => {
+  // axios.patch(`http://localhost:9000/api/todos/:id`, {completed: true})
+  //  .catch(err => {
+  //    console.log(err)
+  //  })
+  // }
 
   handleToggle = (clickedId) => {
     this.setState({
@@ -60,6 +76,7 @@ class App extends React.Component {
       })
     })
   }
+
   render() {
     const { todos } = this.state;
     return (

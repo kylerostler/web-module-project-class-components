@@ -6,7 +6,7 @@ class Todo extends React.Component {
     }
 
     render(){
-      return(<li onClick={this.handleClick}>{this.props.todo.task} { this.props.todo.completed ? <span> --completed</span> : <span></span>}</li>)
+      return(<li onClick={this.handleClick}>{this.props.todo.name} { this.props.todo.completed ? <span> --completed</span> : <span></span>}</li>)
     };
   }
 
