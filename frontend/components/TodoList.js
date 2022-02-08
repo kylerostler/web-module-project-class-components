@@ -3,6 +3,12 @@ import Todo from './Todo'
 
 class TodoList extends React.Component {
  
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState !== this.state) {
+  //     getTodos();
+  //   }
+  // }
+
     render() {
       return(<ul>
         {

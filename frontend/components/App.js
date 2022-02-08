@@ -1,7 +1,7 @@
 
 import React from 'react';
 import TodoList from './TodoList'
-import TodoForm from './Form'
+import Form from './Form'
 import axios from 'axios';
 
 
@@ -54,12 +54,6 @@ class App extends React.Component {
   }
 
 
-  // handleToggle = (clickedId) => {
-  // axios.patch(`http://localhost:9000/api/todos/:id`, {completed: true})
-  //  .catch(err => {
-  //    console.log(err)
-  //  })
-  // }
 
   handleToggle = (clickedId) => {
     this.setState({
@@ -83,9 +77,9 @@ class App extends React.Component {
       <div>
         <h1>Todos</h1>
 
-        <TodoList  handleToggle={this.handleToggle} todos={todos}/>
+        <TodoList  handleToggle={this.handleToggle} todos={todos} />
 
-        <TodoForm handleAdd={this.handleAdd} />
+        <Form handleAdd={this.handleAdd} />
 
         <button onClick={this.handleClear}>Clear</button>
       </div>
